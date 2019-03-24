@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         val tabsFragments = arrayListOf(
             VoucherFragment::class.java,
             NewOrderFragment::class.java
-            )
+        )
 
         //Adapterの生成
         mTabsPagerAdapter = TabsPagerAdapter(supportFragmentManager, tabsFragments)
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    0 -> changeColor(Color.RED)
+                    0 -> changeColor(Color.GRAY)
                     1 -> changeColor(Color.BLUE)
                 }
 
