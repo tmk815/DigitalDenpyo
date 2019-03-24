@@ -11,24 +11,24 @@ import android.widget.SimpleAdapter
 import kotlinx.android.synthetic.main.neworder.*
 
 
-
 class NewOrderFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.neworder, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        ViewCompat.setNestedScrollingEnabled(this.menu_list,true)
-        val items = List(20) { mapOf("title" to "title-$it", "price" to "$it")}
+        ViewCompat.setNestedScrollingEnabled(this.menu_list, true)
+        val items = List(20) { mapOf("name" to "title-$it", "price" to "$it") }
         val adapter = SimpleAdapter(
             this.context,
             items,
             android.R.layout.simple_list_item_2,
-            arrayOf("title", "price"),
+            arrayOf("name", "price"),
             intArrayOf(android.R.id.text1, android.R.id.text2)
         )
         menu_list.adapter = adapter
@@ -37,9 +37,11 @@ class NewOrderFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
     }
+
     override fun onDetach() {
         super.onDetach()
     }
+
     companion object {
         fun newInstance(): NewOrderFragment {
             return NewOrderFragment()
