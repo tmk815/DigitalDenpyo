@@ -1,5 +1,6 @@
 package com.example.tmk815.digitaldenpyo
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //ステータスバー、アクションバー、タブの色変更
+    @SuppressLint("ObsoleteSdkInt")
     private fun changeColor(color: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = color
