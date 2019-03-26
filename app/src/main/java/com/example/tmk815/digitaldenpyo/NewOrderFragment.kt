@@ -1,15 +1,20 @@
 package com.example.tmk815.digitaldenpyo
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.TextView
-import android.widget.Toast
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.neworder.*
 
 
@@ -38,8 +43,29 @@ class NewOrderFragment : Fragment() {
         menu_list.adapter = adapter
 
         menu_list.setOnItemClickListener { adapterView, view, position, id ->
-            val textView = view.findViewById<TextView>(android.R.id.text1)
-            Toast.makeText(this.context, "Clicked: ${textView.text}", Toast.LENGTH_SHORT).show()
+            val textViewName = view.findViewById<TextView>(android.R.id.text1)
+            val textViewPrice = view.findViewById<TextView>(android.R.id.text2)
+            //Toast.makeText(this.context, "Clicked: ${textView.text}", Toast.LENGTH_SHORT).show()
+            // Write a message to the database
+            val database = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("menu").child(textViewName.text.toString())
+
+            myRef.setValue(textViewPrice.text)
+
+            // Read from the database
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    val value = dataSnapshot.getValue(String::class.java)
+                    Log.d(TAG, "Value is: $value")
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException())
+                }
+            })
         }
     }
 
