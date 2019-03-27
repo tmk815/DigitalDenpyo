@@ -15,7 +15,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.neworder.*
+import kotlinx.android.synthetic.main.order_new.*
 
 
 class NewOrderFragment : Fragment() {
@@ -25,7 +25,7 @@ class NewOrderFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.neworder, container, false)
+        return inflater.inflate(R.layout.order_new, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

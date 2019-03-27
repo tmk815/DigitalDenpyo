@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">DigitalDenpyo</string>
+    <string name="button_add">追加</string>
+    <string name="text_name">メニュー名</string>
+    <string name="text_price">価格</string>
+    <string name="name_hint">商品名を入れてください</string>
+    <string name="hint_price">価格を数値のみ入れてください</string>
 
     <string-array name="menu_name">
         <item>焼き餃子</item>

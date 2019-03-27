@@ -1,6 +1,7 @@
 package com.example.tmk815.digitaldenpyo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -70,7 +71,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_settings) {
-            return true
+            val settingIntent = Intent(this, NewMenu::class.java)
+            startActivity(settingIntent)
         }
         return super.onOptionsItemSelected(item)
     }
