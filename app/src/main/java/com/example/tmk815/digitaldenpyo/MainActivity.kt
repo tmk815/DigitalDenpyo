@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.action_settings) {
-            val settingIntent = Intent(this, NewMenu::class.java)
+            val settingIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingIntent)
         }
         return super.onOptionsItemSelected(item)
