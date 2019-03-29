@@ -3,6 +3,6 @@
     <item
             android:id="@+id/action_settings"
             android:title="設定"
-            android:icon="@mipmap/baseline_add_circle_black_18dp"
+            android:icon="@mipmap/baseline_add_circle_outline_black_48"
             app:showAsAction="ifRoom"/>
 </menu>
