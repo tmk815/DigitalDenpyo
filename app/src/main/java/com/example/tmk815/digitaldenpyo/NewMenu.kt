@@ -18,7 +18,7 @@ class NewMenu : AppCompatActivity() {
 
         submitMenu.setOnClickListener {
             val user = FirebaseAuth.getInstance().currentUser
-            /*user?.let {
+            user?.let {
                 // Name, email address, and profile photo Url
                 val name = user.displayName
                 val email = user.email
@@ -31,12 +31,12 @@ class NewMenu : AppCompatActivity() {
                 // authenticate with your backend server, if you have one. Use
                 // FirebaseUser.getToken() instead.
                 val uid = user.uid
-            }*/
 
-            val database = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("menu").child(user!!.uid).child(editName.text.toString())
+                val database = FirebaseDatabase.getInstance()
+                val myRef = database.getReference("menu").child(uid).child(editName.text.toString())
 
-            myRef.setValue((editPrice.text.toString()).toInt())
+                myRef.setValue((editPrice.text.toString()).toInt())
+            }
         }
     }
 }

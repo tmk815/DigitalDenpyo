@@ -23,10 +23,14 @@ class Seat : AppCompatActivity() {
             submitSeat.setOnClickListener {
                 val user = FirebaseAuth.getInstance().currentUser
 
-                val database = FirebaseDatabase.getInstance()
-                val myRef = database.getReference("seat").child(user!!.uid).child(editSeat.text.toString())
+                user?.let {
+                    // Name, email address, and profile photo Url
+                    val database = FirebaseDatabase.getInstance()
+                    val uid = user.uid
+                    val myRef = database.getReference("seat").child(uid).child(editSeat.text.toString())
 
-                myRef.setValue((editCount.text.toString()).toInt())
+                    myRef.setValue((editCount.text.toString()).toInt())
+                }
             }
         }
     }
