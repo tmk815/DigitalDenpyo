@@ -11,19 +11,23 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Seat"
-                  android:parentActivityName=".SettingsActivity">
+        <activity android:name=".FirebaseUIActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".Seat"
+                android:parentActivityName=".SettingsActivity">
         </activity>
         <activity
                 android:name=".SettingsActivity"
                 android:parentActivityName=".MainActivity">
         </activity>
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
                 android:name=".NewMenu"
