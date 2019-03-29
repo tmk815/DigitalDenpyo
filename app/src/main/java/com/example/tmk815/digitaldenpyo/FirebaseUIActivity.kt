@@ -55,12 +55,15 @@ class FirebaseUIActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 Log.d("UID", user?.uid)
+                val settingIntent = Intent(this, MainActivity::class.java)
+                startActivity(settingIntent)
+                finish()
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
-                // ...
+                Log.d("LoginError", response?.error?.errorCode.toString())
             }
         }
     }
