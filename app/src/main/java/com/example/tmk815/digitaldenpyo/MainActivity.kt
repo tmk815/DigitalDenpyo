@@ -2,7 +2,6 @@ package com.example.tmk815.digitaldenpyo
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -43,10 +42,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                when (position) {
+                /*when (position) {
                     0 -> changeColor(Color.GRAY)
                     1 -> changeColor(Color.BLUE)
-                }
+                }*/
 
             }
         })
