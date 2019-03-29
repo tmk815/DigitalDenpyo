@@ -38,11 +38,9 @@ class NewOrderFragment : Fragment() {
             val textViewPrice = view.findViewById<TextView>(android.R.id.text2)
             val textPrice = textViewPrice.text.substring(0,textViewPrice.length()-1).toInt()
 
-            // Write a message to the database
-            val database = FirebaseDatabase.getInstance()
-            val myRef = database.getReference("menu").child(textViewName.text.toString())
-
-            myRef.setValue(textPrice)
+            val textView: TextView = TextView(this.context)
+            textView.text = textViewName.text
+            order_list.addView(textView)
         }
 
         val database = FirebaseDatabase.getInstance()
