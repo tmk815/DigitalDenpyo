@@ -6,6 +6,14 @@
     <string name="name_hint">商品名を入れてください</string>
     <string name="hint_price">価格を数値のみ入れてください</string>
     <string name="setting">設定</string>
+    <string name="tab1">現在の注文</string>
+    <string name="tab2">新規注文</string>
+    <string name="new_menu">新規メニュー</string>
+    <string name="seat_text">座席名</string>
+    <string name="seat_hint">座席名を入れてください</string>
+    <string name="seat_title">新規座席</string>
+    <string name="text_count">人数</string>
+    <string name="hint_count">かけられる人数を入力してください</string>
 
     <string-array name="setting">
         <item>メニュー</item>
