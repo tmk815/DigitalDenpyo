@@ -9,6 +9,11 @@ class NewMenu : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.menu_new)
+        setSupportActionBar(toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+        } ?: IllegalAccessException("Toolbar cannot be null")
 
         submitMenu.setOnClickListener {
             val database = FirebaseDatabase.getInstance()
