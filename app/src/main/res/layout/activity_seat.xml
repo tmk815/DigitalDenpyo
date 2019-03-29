@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="@string/seat_title">
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <Button
+            android:text="@string/button_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submitSeat"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            android:layout_marginTop="48dp" app:layout_constraintTop_toBottomOf="@+id/editCount"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:id="@+id/editSeat" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="128dp" app:layout_constraintTop_toTopOf="parent" android:hint="@string/seat_hint"
+            android:autofillHints=""/>
+    <TextView
+            android:text="@string/seat_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textSeat" app:layout_constraintEnd_toStartOf="@+id/editName"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="32dp" android:textSize="24sp" android:layout_marginTop="128dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:text="@string/text_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textCount" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="52dp" app:layout_constraintEnd_toStartOf="@+id/editPrice"
+            android:layout_marginEnd="8dp" android:textSize="24sp" app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="48dp" app:layout_constraintTop_toBottomOf="@+id/textSeat"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/editCount" android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/editSeat" android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent" android:hint="@string/hint_count" android:autofillHints=""/>
+</android.support.constraint.ConstraintLayout>
