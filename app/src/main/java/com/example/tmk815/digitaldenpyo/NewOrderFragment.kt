@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -43,8 +44,9 @@ class NewOrderFragment : Fragment() {
             order_list.addView(textView)
         }
 
+        val user = FirebaseAuth.getInstance().currentUser
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("menu")
+        val myRef = database.getReference("menu").child(user!!.uid)
 
         // Read from the database
         myRef.addValueEventListener(object : ValueEventListener {
