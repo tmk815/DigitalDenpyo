@@ -36,14 +36,11 @@ class FirebaseUIActivity : AppCompatActivity() {
         }
 
         logOut.setOnClickListener {
-            /*AuthUI.getInstance()
+            AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener {
                     Log.d("signOut","サインアウトしました")
-                }*/
-            val settingIntent = Intent(this, MainActivity::class.java)
-            startActivity(settingIntent)
-
+                }
         }
 
     }
