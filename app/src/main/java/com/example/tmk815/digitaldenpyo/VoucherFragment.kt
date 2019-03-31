@@ -41,9 +41,7 @@ class VoucherFragment : Fragment() {
                 // グループの親項目用のリスト
                 val parentList = ArrayList<Map<String, String>>()
                 // 子要素全体用のリスト
-                var allChildList = ArrayList<List<Map<String, String>>>()
-                // 各グループ別のリスト項目用のリスト
-                val childList = ArrayList<Map<String, String>>()
+                val allChildList = ArrayList<List<Map<String, String>>>()
 
                 //RealTimeDBから取り出した内容をArrayListに追加
                 for (seat in dataSnapshot.children) {
@@ -53,12 +51,14 @@ class VoucherFragment : Fragment() {
                     // グループの親項目用のリストに内容を格納
                     parentList.add(parentData)
 
-                    //val myOrder = database.getReference("order").child(order!!.uid).child(seat.value.toString())
+                    // 各グループ別のリスト項目用のリスト
+                    val childList = ArrayList<Map<String, String>>()
+
                     for (newOrder in seat.children) {
                         val childData = HashMap<String, String>()
                         for (count in newOrder.children) {
                             childData["NAME"] = count.key.toString()
-                            childData["PRICE"] = count.value.toString()
+                            childData["PRICE"] = count.value.toString() + "円"
                         }
                         // リストに文字を格納
                         childList.add(childData)
