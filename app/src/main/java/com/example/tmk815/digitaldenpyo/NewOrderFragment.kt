@@ -3,8 +3,8 @@ package com.example.tmk815.digitaldenpyo
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.core.view.ViewCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.order_new.*
 
 
-class NewOrderFragment : Fragment() {
+class NewOrderFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
