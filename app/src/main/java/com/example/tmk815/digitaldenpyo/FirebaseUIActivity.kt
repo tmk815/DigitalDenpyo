@@ -13,7 +13,7 @@ import java.util.*
 
 class FirebaseUIActivity : AppCompatActivity() {
     companion object {
-        val RC_SIGN_IN = 123
+        const val RC_SIGN_IN = 123
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
