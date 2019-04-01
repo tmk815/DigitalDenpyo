@@ -1,14 +1,11 @@
 package com.example.tmk815.digitaldenpyo
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -53,14 +50,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     //ステータスバー、アクションバー、タブの色変更
-    @SuppressLint("ObsoleteSdkInt")
+    /*@SuppressLint("ObsoleteSdkInt")
     private fun changeColor(color: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = color
         }
         tabs.setBackgroundColor(color)
         toolbar.setBackgroundColor(color)
-    }
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
