@@ -3,7 +3,6 @@ package com.example.tmk815.digitaldenpyo
 import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +29,7 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val order = FirebaseAuth.getInstance().currentUser
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference("order").child(order!!.uid)
+        val myRef = database.getReference("order").child(order!!.uid).child("before")
 
         // Read from the database
         myRef.addValueEventListener(object : ValueEventListener {
@@ -56,12 +55,16 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
 
                     for (newOrder in seat.children) {
                         val childData = HashMap<String, String>()
-                        for (count in newOrder.children) {
-                            childData["NAME"] = count.key.toString()
-                            childData["PRICE"] = count.value.toString() + "円"
+                        if (newOrder.child("already").value == false) {
+                            for (count in newOrder.children) {
+                                childData["NAME"] = newOrder.key.toString()
+                                if (count.key == "number") {
+                                    childData["PRICE"] = count.value.toString() + "個"
+                                }
+                            }
+                            // リストに文字を格納
+                            childList.add(childData)
                         }
-                        // リストに文字を格納
-                        childList.add(childData)
                     }
                     // 子要素全体用のリストに各グループごとデータを格納
                     allChildList.add(childList)
