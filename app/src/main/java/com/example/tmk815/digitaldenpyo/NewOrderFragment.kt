@@ -3,14 +3,13 @@ package com.example.tmk815.digitaldenpyo
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.core.view.ViewCompat
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleAdapter
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -34,12 +33,14 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
         val menuName: ArrayList<String> = arrayListOf()
         val menuPrice: ArrayList<Int> = arrayListOf()
 
+
+        //クリックするをメニューを下に追加する処理
         menu_list.setOnItemClickListener { adapterView, view, position, id ->
             val textViewName = view.findViewById<TextView>(android.R.id.text1)
-            val textViewPrice = view.findViewById<TextView>(android.R.id.text2)
-            val textPrice = textViewPrice.text.substring(0,textViewPrice.length()-1).toInt()
+            //val textViewPrice = view.findViewById<TextView>(android.R.id.text2)
+            //val textPrice = textViewPrice.text.substring(0,textViewPrice.length()-1).toInt()
 
-            val textView: TextView = TextView(this.context)
+            val textView = TextView(this.context)
             textView.text = textViewName.text
             order_list.addView(textView)
         }
