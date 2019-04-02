@@ -59,7 +59,7 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
                             for (count in newOrder.children) {
                                 childData["NAME"] = newOrder.key.toString()
                                 if (count.key == "number") {
-                                    childData["PRICE"] = count.value.toString() + "個"
+                                    childData["NUMBER"] = count.value.toString() + "個"
                                 }
                             }
                             // リストに文字を格納
@@ -78,12 +78,25 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
                     intArrayOf(android.R.id.text1, android.R.id.text2),
                     allChildList,
                     android.R.layout.simple_expandable_list_item_2,
-                    arrayOf("NAME", "PRICE"),
+                    arrayOf("NAME", "NUMBER"),
                     intArrayOf(android.R.id.text1, android.R.id.text2)
                 )
                 //生成した情報をセット
-                val lv = voucherList
-                lv.setAdapter(adapter)
+                //val lv = voucherList
+                voucherList.setAdapter(adapter)
+
+                voucherList.setOnChildClickListener { parent, view, groupPosition, childPosition, id ->
+                    val adapter = parent.expandableListAdapter
+                    // クリックされた場所の内容情報を取得
+                    val item = adapter.getChild(groupPosition, childPosition) as Map<String, String>
+                    val orderFlag = mutableMapOf<String, Any>()
+                    orderFlag["already"] = true
+                    val seat = parentList[groupPosition]
+                    myRef.child(seat.getValue("SEAT")).child(item["NAME"].toString()).updateChildren(orderFlag)
+
+                    false
+                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -91,7 +104,9 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
         })
+
     }
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
