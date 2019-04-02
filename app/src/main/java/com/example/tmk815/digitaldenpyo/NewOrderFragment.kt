@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.order_new.*
 
 class NewOrderFragment : androidx.fragment.app.Fragment() {
 
-    private var seatNumber: String = "0"
+    private var seatNumber: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
 
                 val order = FirebaseAuth.getInstance().currentUser
                 val database = FirebaseDatabase.getInstance()
-                database.getReference("order").child(order!!.uid).child("before").child(seatNumber.toString())
+                database.getReference("order").child(order!!.uid).child("before").child(seatNumber!!)
                     .child(textViewName.text.toString()).setValue(newOrder)
 
                 Toast.makeText(this.context, "${textViewName.text}を${number}個注文しました", Toast.LENGTH_SHORT).show()
@@ -107,7 +107,6 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
         if (isVisibleToUser) {
             // 表示状態になったときの処理
             val myEdit = EditText(this.context)
-            myEdit.inputType = TYPE_CLASS_NUMBER
             val dialog = AlertDialog.Builder(this.context!!)
             dialog.setTitle("座席を入力してください")
             dialog.setView(myEdit)
