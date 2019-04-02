@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.order_new.*
 
 class NewOrderFragment : androidx.fragment.app.Fragment() {
 
+    private var seatNumber: String = "0"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -99,6 +101,26 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        if (isVisibleToUser) {
+            // 表示状態になったときの処理
+            val myEdit = EditText(this.context)
+            myEdit.inputType = TYPE_CLASS_NUMBER
+            val dialog = AlertDialog.Builder(this.context!!)
+            dialog.setTitle("座席を入力してください")
+            dialog.setView(myEdit)
+            dialog.setPositiveButton("OK") { _, _ ->
+                // OKボタン押したときの処理
+                seatNumber = myEdit.text.toString()
+                Toast.makeText(this.context, "${seatNumber}の座席の注文を取ります", Toast.LENGTH_SHORT).show()
+            }
+            dialog.setNegativeButton("キャンセル", null)
+            dialog.show()
+        } else {
+            // 非表示状態になったときの処理
+        }
     }
 
     override fun onAttach(context: Context?) {
