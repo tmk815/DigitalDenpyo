@@ -3,12 +3,16 @@ package com.example.tmk815.digitaldenpyo
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.text.InputType.TYPE_CLASS_NUMBER
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.SimpleAdapter
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -34,15 +38,32 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
         val menuPrice: ArrayList<Int> = arrayListOf()
 
 
-        //クリックするをメニューを下に追加する処理
+        //クリックしたメニューの処理
         menu_list.setOnItemClickListener { adapterView, view, position, id ->
             val textViewName = view.findViewById<TextView>(android.R.id.text1)
-            //val textViewPrice = view.findViewById<TextView>(android.R.id.text2)
-            //val textPrice = textViewPrice.text.substring(0,textViewPrice.length()-1).toInt()
+            val textViewPrice = view.findViewById<TextView>(android.R.id.text2)
+            val textPrice = textViewPrice.text.substring(0, textViewPrice.length() - 1).toInt()
 
-            val textView = TextView(this.context)
-            textView.text = textViewName.text
-            order_list.addView(textView)
+            //個数を選択するダイアログ
+            val numberEdit = EditText(this.context)
+            numberEdit.inputType = TYPE_CLASS_NUMBER
+            val dialog = AlertDialog.Builder(this.context!!)
+            dialog.setTitle("個数を入力してください")
+            dialog.setView(numberEdit)
+            dialog.setPositiveButton("注文") { _, _ ->
+                // OKボタン押したときの処理
+                val number = (numberEdit.text.toString()).toInt()
+                val newOrder = Order(false, number, textPrice)
+
+                val order = FirebaseAuth.getInstance().currentUser
+                val database = FirebaseDatabase.getInstance()
+                database.getReference("order").child(order!!.uid).child("before").child(seatNumber.toString())
+                    .child(textViewName.text.toString()).setValue(newOrder)
+
+                Toast.makeText(this.context, "${textViewName.text}を${number}個注文しました", Toast.LENGTH_SHORT).show()
+            }
+            dialog.setNegativeButton("キャンセル", null)
+            dialog.show()
         }
 
         val user = FirebaseAuth.getInstance().currentUser
