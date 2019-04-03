@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ExpandableListView
 import android.widget.SimpleExpandableListAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -85,14 +86,58 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
                 //val lv = voucherList
                 voucherList.setAdapter(adapter)
 
+
+                //グループの子項目がクリックされた時
                 voucherList.setOnChildClickListener { parent, view, groupPosition, childPosition, id ->
                     val adapter = parent.expandableListAdapter
                     // クリックされた場所の内容情報を取得
+
                     val item = adapter.getChild(groupPosition, childPosition) as Map<String, String>
                     val orderFlag = mutableMapOf<String, Any>()
                     orderFlag["already"] = true
                     val seat = parentList[groupPosition]
                     myRef.child(seat.getValue("SEAT")).child(item["NAME"].toString()).updateChildren(orderFlag)
+                    false
+                }
+
+                // グループの親項目がクリックされた時の処理
+                voucherList.setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, view, groupPosition, id ->
+
+                    false
+                })
+
+                voucherList.setOnItemLongClickListener { parent, view, position, id ->
+                    val listView = parent as ExpandableListView
+                    val packed = listView.getExpandableListPosition(position)
+                    val groupPosition = ExpandableListView.getPackedPositionGroup(packed)
+                    val childPosition = ExpandableListView.getPackedPositionChild(packed)
+                    if (ExpandableListView.getPackedPositionType(packed) == 0) {
+                        //子要素が長押しされた時のアクションを記述
+                        val adapter = parent.expandableListAdapter
+                        val seat = adapter.getGroup(groupPosition) as Map<String, String>
+                        val seatCount = database.getReference("order").child(order!!.uid).child("before")
+                            .child(seat.getValue("SEAT"))
+                        seatCount.addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                for (menu in dataSnapshot.children) {
+                                    val menuName = menu.key!!
+                                    val orderAfter = menu.getValue(Order::class.java)
+                                    database.getReference("order").child(order!!.uid).child("after")
+                                        .child(seat.getValue("SEAT")).child(menuName).setValue(orderAfter)
+                                    database.getReference("order").child(order!!.uid).child("before")
+                                        .child(seat.getValue("SEAT")).removeValue()
+                                }
+
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // Failed to read value
+                                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+                            }
+                        })
+                    } else {
+                        //親要素が長押しされた時のアクションを記述
+                    }
 
                     false
                 }
