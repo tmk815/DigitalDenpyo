@@ -1,4 +1,4 @@
 package com.example.tmk815.digitaldenpyo
 
-class Order(val already: Boolean, val number: Int, val price: Int) {
+data class Order(val already: Boolean = false, val number: Int = 0, val price: Int = 0) {
 }
