@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.order_new.*
-
+import java.util.*
 
 class NewOrderFragment : androidx.fragment.app.Fragment() {
 
@@ -106,7 +106,7 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         if (isVisibleToUser) {
             // 表示状態になったときの処理
-            val myEdit = EditText(this.context)
+            /*val myEdit = EditText(this.context)
             val dialog = AlertDialog.Builder(this.context!!)
             dialog.setTitle("座席を入力してください")
             dialog.setView(myEdit)
@@ -116,7 +116,48 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
                 Toast.makeText(this.context, "${seatNumber}の座席の注文を取ります", Toast.LENGTH_SHORT).show()
             }
             dialog.setNegativeButton("キャンセル", null)
-            dialog.show()
+            dialog.show()*/
+            val user = FirebaseAuth.getInstance().currentUser
+            val database = FirebaseDatabase.getInstance()
+            val myRef = database.getReference("seat").child(user!!.uid)
+            val seatArrayList: ArrayList<String> = arrayListOf()
+
+            // Read from the database
+            myRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    //ArrayList初期化
+                    seatArrayList.clear()
+                    //RealTimeDBから取り出した内容をArrayListに追加
+                    for (dataSeat in dataSnapshot.children) {
+                        seatArrayList.add(dataSeat.key!!)
+                    }
+
+                    var arraySeat = Array(seatArrayList.size) { i -> seatArrayList[i] }
+
+                    var selectedItem = 0 // デフォルトでチェックされているアイテム
+                    // 選択肢
+                    // ダイアログを作成して表示
+                    AlertDialog.Builder(context!!).apply {
+                        setTitle("座席名")
+                        setSingleChoiceItems(arraySeat, 0) { _, i ->
+                            // 選択した項目を保持
+                            selectedItem = i
+                        }
+                        setPositiveButton("OK") { _, _ ->
+                            seatNumber = seatArrayList[selectedItem]
+                        }
+                        setNegativeButton("Cancel", null)
+                        show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                    Log.w(TAG, "Failed to read value.", error.toException())
+                }
+            })
         } else {
             // 非表示状態になったときの処理
         }
