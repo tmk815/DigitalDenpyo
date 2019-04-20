@@ -15,12 +15,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.order_new.*
 import java.util.*
+
 
 class NewOrderFragment : androidx.fragment.app.Fragment() {
 
@@ -59,8 +57,29 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
 
                 val order = FirebaseAuth.getInstance().currentUser
                 val database = FirebaseDatabase.getInstance()
-                database.getReference("order").child(order!!.uid).child("before").child(seatNumber!!)
-                    .child(textViewName.text.toString()).setValue(newOrder)
+
+
+                val upvotesRef = database.getReference("order").child(order!!.uid).child("before").child(seatNumber!!)
+                    .child(textViewName.text.toString())
+                upvotesRef.runTransaction(object : Transaction.Handler {
+                    override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                        val currentValue = mutableData.child("number").value
+                        if (currentValue == null) {
+                            database.getReference("order").child(order.uid).child("before").child(seatNumber!!)
+                                .child(textViewName.text.toString()).setValue(newOrder)
+                        } else {
+                            mutableData.value = Order(false, currentValue.toString().toInt() + number, textPrice)
+                        }
+
+                        return Transaction.success(mutableData)
+                    }
+
+                    override fun onComplete(
+                        databaseError: DatabaseError?, committed: Boolean, dataSnapshot: DataSnapshot?
+                    ) {
+                        println("Transaction completed")
+                    }
+                })
 
                 Toast.makeText(this.context, "${textViewName.text}を${number}個注文しました", Toast.LENGTH_SHORT).show()
             }
