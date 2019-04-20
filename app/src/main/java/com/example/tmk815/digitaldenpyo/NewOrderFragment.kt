@@ -160,6 +160,7 @@ class NewOrderFragment : androidx.fragment.app.Fragment() {
                     // ダイアログを作成して表示
                     AlertDialog.Builder(context!!).apply {
                         setTitle("座席名")
+                        setCancelable(false)
                         setSingleChoiceItems(arraySeat, 0) { _, i ->
                             // 選択した項目を保持
                             selectedItem = i
