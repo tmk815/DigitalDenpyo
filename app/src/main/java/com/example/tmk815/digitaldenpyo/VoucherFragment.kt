@@ -75,7 +75,7 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
                 }
                 // アダプタを作る
                 val adapter = SimpleExpandableListAdapter(
-                    this@VoucherFragment.context,
+                    context,
                     parentList,
                     android.R.layout.simple_expandable_list_item_1,
                     arrayOf("SEAT"),
