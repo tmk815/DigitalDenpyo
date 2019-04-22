@@ -139,6 +139,7 @@ class VoucherFragment : androidx.fragment.app.Fragment() {
                                             // OKをタップしたときの処理
                                             for (menu in dataSnapshot.children) {
                                                 val menuName = menu.key!!
+                                                //ここで更新するのではなくMapに商品名と個数を持ってあとで更新をかける
                                                 val orderAfter = menu.getValue(Order::class.java)
                                                 database.getReference("order").child(order!!.uid).child("after")
                                                     .child(seat.getValue("SEAT")).child(menuName).setValue(orderAfter)
