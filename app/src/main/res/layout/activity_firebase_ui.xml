@@ -6,7 +6,7 @@
 
     <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" app:srcCompat="@mipmap/login"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/fui_ic_googleg_color_24dp"
             android:id="@+id/imageView" android:layout_weight="1"/>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content">
